@@ -19,7 +19,9 @@ def main():
     p.add_argument("--skip-train", action="store_true", help="Skip training (use existing models)")
     p.add_argument("--with-validation", action="store_true", help="Run rolling CV and write model_meta.json")
     p.add_argument("--skip-export", action="store_true", help="Skip writing CSV/artifacts to processed dir")
+    p.add_argument("--n-sims", type=int, default=None, help=f"Monte Carlo sim count (default: {DEFAULT_N_SIMS}). Use 2000 for a quicker run.")
     args = p.parse_args()
+    n_sims = args.n_sims if args.n_sims is not None else DEFAULT_N_SIMS
 
     print("1. Validating schema…")
     from mm.data.validate_schema import run_validation
@@ -50,7 +52,7 @@ def main():
         print("4. No bracket file; skip simulation. Add data/raw/bracket_2026.json and re-run.")
         return 0
 
-    print("4. Running bracket simulation…")
+    print(f"4. Running bracket simulation ({n_sims} sims)…")
     from mm.config import DEFAULT_SEASON
     from mm.bracket.simulate import (
         load_bracket_and_simulate,
@@ -63,7 +65,7 @@ def main():
     from mm.data.kaggle_loader import load_all
 
     game_probs, champ_probs, advancement, next_probs = load_bracket_and_simulate(
-        BRACKET_PATH, raw_dir=RAW_DIR, model_dir=PROCESSED_DIR, n_sims=DEFAULT_N_SIMS
+        BRACKET_PATH, raw_dir=RAW_DIR, model_dir=PROCESSED_DIR, n_sims=n_sims
     )
     print(f"   Games: {len(game_probs)}, champion odds for {len(champ_probs)} teams")
 
@@ -89,6 +91,7 @@ def main():
         massey = massey[massey["Season"] == season]
     model = load_model(PROCESSED_DIR, "xgb")
     feats = load_feature_columns(PROCESSED_DIR)
+    print("   Building pairwise win matrix…", flush=True)
     pairwise = build_pairwise_win_matrix(game_probs, model, feats, season, regular, massey)
     team_to_seed = _team_to_seed_from_game_probs(game_probs)
     r1_slot_probs = {}

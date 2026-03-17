@@ -26,6 +26,13 @@ else:
 
 
 @pytest.mark.skipif(client is None, reason="httpx not installed")
+def test_health_returns_200():
+    r = client.get("/health")
+    assert r.status_code == 200
+    assert r.json().get("status") == "ok"
+
+
+@pytest.mark.skipif(client is None, reason="httpx not installed")
 def test_bracket_404_when_no_file():
     with patch("dashboard.api.main.BRACKET_PATH") as mock_path:
         mock_path.exists.return_value = False

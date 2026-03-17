@@ -256,7 +256,10 @@ def run_monte_carlo(
         elite8_counts = {}
         sweet16_counts = {}
         r2_counts = {}
-        for _ in range(n_sims):
+        report_every = max(1, n_sims // 10)
+        for sim_i in range(n_sims):
+            if (sim_i + 1) % report_every == 0 or sim_i == 0:
+                print(f"   sims {sim_i + 1}/{n_sims}", flush=True)
             winners = {}
             for slot in slot_order:
                 if slot in fixed_winners:
@@ -307,7 +310,10 @@ def run_monte_carlo(
         return game_probs, champ_probs, advancement
     # Fallback: independent R1 games only, champion = winner of last game in list
     champ_counts = {}
-    for _ in range(n_sims):
+    report_every = max(1, n_sims // 10)
+    for sim_i in range(n_sims):
+        if (sim_i + 1) % report_every == 0 or sim_i == 0:
+            print(f"   sims {sim_i + 1}/{n_sims}", flush=True)
         last_w = None
         for gp in game_probs:
             slot = str(gp.get("slot", ""))

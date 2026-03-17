@@ -19,7 +19,7 @@ pip install -e ".[dev]"
 PYTHONPATH=src python scripts/refresh.py
 ```
 
-Optional: `--skip-train` to use existing models, `--with-validation` to run rolling CV and write `model_meta.json`.
+Optional: `--skip-train` to use existing models, `--n-sims 2000` for a quicker run (default 10k), `--with-validation` to run rolling CV and write `model_meta.json`.
 
 **Launch dashboard:**
 

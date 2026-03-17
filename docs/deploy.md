@@ -85,6 +85,49 @@ Refresh regenerates the bracket cache and matchup matrix (so the dashboard and w
 5. Build frontend: `cd dashboard/frontend && npm run build && cp -r dist/* ../../frontend-dist/`.
 6. Deploy script: run `./deploy/scripts/deploy.sh` (from repo root) to reinstall deps, rebuild frontend, and restart the API. Refresh: `./deploy/scripts/refresh.sh`.
 
+## Custom subdomain (e.g. mm.adamolson.org)
+
+If you own a domain (e.g. **adamolson.org**) on another host and want the app at **mm.adamolson.org**:
+
+### 1. Add a DNS record
+
+Wherever **adamolson.org** is managed (GoDaddy, Namecheap, Cloudflare, Google Domains, Route 53, etc.):
+
+- **Type:** `A`
+- **Name/host:** `mm` (or `mm.adamolson` depending on the provider; you want the FQDN to be `mm.adamolson.org`)
+- **Value:** Your VPS public IP (the same IP you use for SSH and that you set as `VPS_HOST` in GitHub Actions)
+- **TTL:** 300 or 3600
+
+Save the record. DNS can take a few minutes to an hour to propagate. Check with `dig mm.adamolson.org` or [whatsmydns.net](https://www.whatsmydns.net/#A/mm.adamolson.org).
+
+### 2. Use the domain in Nginx (Docker)
+
+So the app responds to `http://mm.adamolson.org` instead of only the IP:
+
+- Copy the domain Nginx config and use it for the web container: `cp deploy/nginx-domain.conf deploy/nginx.conf` (or mount `nginx-domain.conf` as the default in `docker-compose.yml`). It has `server_name mm.adamolson.org`. Redeploy so the container picks up the config.
+- Optional: set GitHub Actions secret `VPS_HOST` to `mm.adamolson.org` so deploy and refresh use the hostname.
+
+### 3. HTTPS (recommended for a public URL)
+
+The stack is HTTP-only. To serve **https://mm.adamolson.org** with a free certificate:
+
+**Option A — Certbot on the VPS (Nginx on host)**  
+Put Nginx and certbot on the host; run the app container on an internal port so the host can bind 80/443.
+
+1. In `docker-compose.yml`, change the web service ports from `"80:80"` to `"8080:80"`.
+2. On the VPS, install Nginx and certbot: `sudo apt install nginx certbot python3-certbot-nginx`.
+3. Use the example host config: `deploy/nginx-host-ssl.conf.example`. Copy it to e.g. `/etc/nginx/sites-available/mm.adamolson.org`. Edit so the proxy target is `http://127.0.0.1:8080`.
+4. For the first run, use a temporary server block that listens on 80, serves `/.well-known/acme-challenge/` from `/var/www/certbot`, and proxies everything else to `http://127.0.0.1:8080`. Run: `sudo certbot certonly --webroot -w /var/www/certbot -d mm.adamolson.org`.
+5. Then switch to the full config in the example (redirect HTTP to HTTPS and 443 with `ssl_certificate` from certbot). Run `sudo nginx -t && sudo systemctl reload nginx`.
+6. Set `CORS_ORIGINS=https://mm.adamolson.org` for the API (see Troubleshooting). Renewal: `sudo certbot renew` (or use a systemd timer/cron).
+
+**Option B — Caddy in front**  
+Run Caddy in a container or on the host with `CADDY_DOMAIN=mm.adamolson.org`; it obtains and renews Let's Encrypt certs automatically.
+
+After HTTPS is working, set `CORS_ORIGINS=https://mm.adamolson.org` in the API environment.
+
+---
+
 ## HTTPS (for public sharing)
 
 The stack serves HTTP only. For a public URL you should add HTTPS. Two common options: (1) **On the VPS** — Put Caddy or Nginx in front with Let’s Encrypt (e.g. `certbot` and an Nginx config for TLS). (2) **In the cloud** — Use a load balancer (e.g. AWS ALB, Azure Load Balancer) with an ACM/Key Vault certificate and terminate TLS there, forwarding HTTP to the VPS. After HTTPS is in place, set `CORS_ORIGINS` to your `https://` origin (see Troubleshooting).
