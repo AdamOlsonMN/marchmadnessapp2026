@@ -20,6 +20,13 @@ data/processed/*
 !data/processed/.gitkeep
 data/history.db
 
+# Env and secrets (never commit)
+.env
+.env.*
+!.env.example
+*.pem
+kaggle.json
+
 # IDE / OS
 .cursor
 .idea
