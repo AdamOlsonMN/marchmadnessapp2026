@@ -1,0 +1,5 @@
+# Built frontend is copied here (npm run build then cp -r dashboard/frontend/dist/* .)
+# Only the placeholder index.html is committed.
+*
+!.gitignore
+!index.html

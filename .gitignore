@@ -1,0 +1,27 @@
+# Python
+.venv
+venv
+__pycache__
+*.pyc
+.pytest_cache
+.coverage
+htmlcov
+
+# Node
+node_modules
+dashboard/frontend/dist
+
+# Data — do not commit Kaggle CSVs, model artifacts, or DB; bracket and .gitkeep are tracked
+data/raw/*
+!data/raw/.gitkeep
+!data/raw/bracket_2026.json
+!data/raw/bracket_2026.example.json
+data/processed/*
+!data/processed/.gitkeep
+data/history.db
+
+# IDE / OS
+.cursor
+.idea
+*.swp
+.DS_Store

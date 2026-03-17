@@ -1,0 +1,23 @@
+# Dependencies and caches
+.venv
+venv
+__pycache__
+*.pyc
+.pytest_cache
+node_modules
+dashboard/frontend/node_modules
+dashboard/frontend/dist
+
+# Data mounted at runtime
+data/
+
+# Git and IDE
+.git
+.cursor
+*.md
+!README.md
+
+# Tests and dev
+tests
+.coverage
+htmlcov

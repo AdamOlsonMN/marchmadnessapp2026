@@ -1,0 +1,4 @@
+[console_scripts]
+mm-simulate = mm.bracket.simulate:main
+mm-train = mm.models.train:main
+mm-validate = mm.models.validate:main

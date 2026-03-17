@@ -1,0 +1,37 @@
+# Run refresh on the VPS (regenerate bracket cache and matchup matrix).
+# Manual: Actions → Refresh → Run workflow. Optional: enable schedule for daily run.
+# Secrets: SSH_PRIVATE_KEY, VPS_HOST. Optional: VPS_USER, VPS_APP_DIR.
+name: Refresh
+
+on:
+  workflow_dispatch: {}
+  # schedule:
+  #   - cron: "0 6 * * *"   # 06:00 UTC daily
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set deploy env
+        run: |
+          VPS_USER="${{ secrets.VPS_USER }}"
+          VPS_APP_DIR="${{ secrets.VPS_APP_DIR }}"
+          echo "VPS_USER=${VPS_USER:-root}" >> $GITHUB_ENV
+          echo "VPS_APP_DIR=${VPS_APP_DIR:-/var/www/march-madness}" >> $GITHUB_ENV
+
+      - name: SSH run refresh on VPS
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ env.VPS_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            set -e
+            APP_DIR="${{ env.VPS_APP_DIR }}"
+            cd "$APP_DIR"
+            if command -v docker >/dev/null 2>&1 && [ -f docker-compose.yml ]; then
+              docker compose --profile tools run --rm refresh
+            else
+              export PYTHONPATH="$APP_DIR/src"
+              "$APP_DIR/.venv/bin/python" scripts/refresh.py
+            fi

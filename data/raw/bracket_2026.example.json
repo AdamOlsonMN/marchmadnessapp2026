@@ -1,0 +1,16 @@
+{
+  "teams": [
+    { "id": 1001, "name": "Duke", "seed": 1, "region": "W" },
+    { "id": 1002, "name": "North Carolina", "seed": 16, "region": "W" }
+  ],
+  "games": [
+    {
+      "slot": "R1W1",
+      "team1_id": 1001,
+      "team2_id": 1002,
+      "seed1": 1,
+      "seed2": 16,
+      "region": "W"
+    }
+  ]
+}

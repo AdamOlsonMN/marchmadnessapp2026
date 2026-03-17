@@ -1,0 +1,16 @@
+[Unit]
+Description=March Madness API (FastAPI)
+After=network.target
+
+[Service]
+Type=simple
+User=www-data
+Group=www-data
+WorkingDirectory=/var/www/march-madness
+Environment=PYTHONPATH=/var/www/march-madness/src
+ExecStart=/var/www/march-madness/.venv/bin/uvicorn dashboard.api.main:app --host 127.0.0.1 --port 8000
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

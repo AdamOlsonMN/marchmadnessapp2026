@@ -1,0 +1,84 @@
+# Deploy to VPS on push to main. Uses Docker on the server.
+# Secrets: SSH_PRIVATE_KEY, VPS_HOST. Optional: VPS_USER (default root), VPS_APP_DIR (default /var/www/march-madness).
+name: Deploy
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set deploy env
+        run: |
+          VPS_USER="${{ secrets.VPS_USER }}"
+          VPS_APP_DIR="${{ secrets.VPS_APP_DIR }}"
+          echo "VPS_USER=${VPS_USER:-root}" >> $GITHUB_ENV
+          echo "VPS_APP_DIR=${VPS_APP_DIR:-/var/www/march-madness}" >> $GITHUB_ENV
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+          cache-dependency-path: dashboard/frontend/package-lock.json
+
+      - name: Build frontend
+        run: |
+          cd dashboard/frontend
+          npm ci
+          npm run build
+
+      - name: Rsync frontend to VPS
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          rsync -avz -e "ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no" \
+            dashboard/frontend/dist/ \
+            ${{ env.VPS_USER }}@${{ secrets.VPS_HOST }}:${{ env.VPS_APP_DIR }}/frontend-dist/
+
+      - name: Verify frontend on VPS
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ env.VPS_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            set -e
+            APP_DIR="${{ env.VPS_APP_DIR }}"
+            if grep -q "Frontend not built" "$APP_DIR/frontend-dist/index.html" 2>/dev/null; then
+              echo "Frontend is still the placeholder; rsync or build may have failed."
+              exit 1
+            fi
+            if [ ! -f "$APP_DIR/frontend-dist/index.html" ]; then
+              echo "frontend-dist/index.html missing."
+              exit 1
+            fi
+
+      - name: SSH deploy and restart
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ env.VPS_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            set -e
+            APP_DIR="${{ env.VPS_APP_DIR }}"
+            cd "$APP_DIR"
+            git pull --quiet || true
+            docker compose build --quiet api
+            docker compose up -d
+
+      - name: Verify API after deploy
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ env.VPS_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            set -e
+            curl -sf http://localhost/api/health > /dev/null || (echo "API health check failed (non-2xx)." && exit 1)

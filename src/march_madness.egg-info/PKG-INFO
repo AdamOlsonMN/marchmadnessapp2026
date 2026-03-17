@@ -1,0 +1,72 @@
+Metadata-Version: 2.4
+Name: march-madness
+Version: 0.1.0
+Summary: NCAA March Madness bracket prediction with XGBoost and odds comparison
+Author: March Madness Predictor
+License: MIT
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+Requires-Dist: numpy>=1.24
+Requires-Dist: pandas>=2.0
+Requires-Dist: scikit-learn>=1.3
+Requires-Dist: xgboost>=2.0
+Requires-Dist: requests>=2.28
+Requires-Dist: streamlit>=1.28
+Requires-Dist: pyarrow>=14.0
+Provides-Extra: dev
+Requires-Dist: pytest>=7.0; extra == "dev"
+Requires-Dist: pytest-cov>=4.0; extra == "dev"
+
+# March Madness Predictor
+
+NCAA men's tournament bracket prediction using free/public historical data, calibrated XGBoost (and baseline) models, rolling cross-validation, and a manual-refresh dashboard that compares model probabilities to sportsbook odds.
+
+## Scope
+
+- **2026 NCAA men's tournament** (Python).
+- Pairwise game prediction with calibrated probabilities; bracket simulation and value recommendations vs Overtime (or fallback odds).
+
+## Setup
+
+```bash
+cd march-madness
+python -m venv .venv
+source .venv/bin/activate   # or .venv\Scripts\activate on Windows
+pip install -e ".[dev]"
+```
+
+## Data Sources
+
+- **Backbone**: [Kaggle March Machine Learning Mania](https://www.kaggle.com/competitions/march-machine-learning-mania-2026) — download `Teams`, regular season results, tournament results, seeds, Massey ordinals into `data/raw/`.
+- **Enrichment**: Sports-Reference team ratings and advanced stats (public).
+- **Odds**: Overtime API (if approved) or manual/CSV snapshots in `data/raw/`.
+
+## Official Bracket (when released)
+
+1. Put the official 68-team bracket into **`data/raw/bracket_2026.json`** using the schema below.
+2. Run the loader and simulator against it: the dashboard and CLI use a "bracket source" (path to this file or a synthetic bracket).
+
+### Bracket schema (`bracket_2026.json`)
+
+JSON structure the loader expects:
+
+- **`teams`**: list of `{ "id": "<internal_or_kaggle_id>", "name": "Team Name", "seed": 1-16, "region": "W"|"X"|"Y"|"Z" }`. All 68 teams (including play-in winners as TBD or resolved).
+- **`games`**: list of first-round (and optionally later) matchups, each `{ "slot": "R1W1", "team1_id": "...", "team2_id": "...", "seed1": 1, "seed2": 16, "region": "W" }`. Slots can follow Kaggle (e.g. R1W1, R2W1, …) or a minimal custom naming.
+- **Validation**: 68 teams, correct round structure, no duplicate teams in a game. See `src/mm/bracket/official_bracket.py`.
+
+Fill this file once the NCAA releases the bracket; the pipeline will use it for real matchups and value recommendations.
+
+## Commands
+
+- **Train models**: `python -m mm.models.train` (or `mm-train` after install)
+- **Validate (rolling CV, calibration)**: `python -m mm.models.validate`
+- **Simulate bracket**: `python -m mm.bracket.simulate --bracket data/raw/bracket_2026.json`
+- **Dashboard**: `streamlit run dashboard/app.py`
+
+## Project layout
+
+- `data/raw/` — downloaded Kaggle CSVs, odds snapshots, `bracket_2026.json`
+- `data/processed/` — cleaned matchups and features
+- `src/mm/` — data loaders, features, models, bracket simulation, odds, value engine
+- `dashboard/app.py` — Streamlit UI
+- `tests/` — dataset, feature, and simulation tests

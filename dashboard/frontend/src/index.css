@@ -1,0 +1,80 @@
+:root {
+  /* Command center dark theme — ESPN-inspired, premium */
+  --bg: #0c1117;
+  --bg-grid: #0c1117;
+  --surface: #161b22;
+  --surface-elevated: #21262d;
+  --surface-hover: #30363d;
+  --border: rgba(255, 255, 255, 0.08);
+  --border-strong: rgba(255, 255, 255, 0.12);
+  --text: #e6edf3;
+  --text-muted: #8b949e;
+  --text-bright: #f0f6fc;
+  --accent: #e31937;
+  --accent-hover: #ff3355;
+  --accent-soft: rgba(227, 25, 55, 0.15);
+  --accent-glow: rgba(227, 25, 55, 0.25);
+  --favored: #3fb950;
+  --favored-soft: rgba(63, 185, 80, 0.12);
+  --gold: #d4a853;
+  --gold-soft: rgba(212, 168, 83, 0.12);
+  --shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.5);
+
+  --sans: 'Source Sans 3', -apple-system, BlinkMacSystemFont, sans-serif;
+  --display: 'Oswald', var(--sans);
+
+  font: 16px/1.5 var(--sans);
+  color: var(--text);
+  background: var(--bg);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background-image: linear-gradient(180deg, var(--bg) 0%, #0a0e12 100%);
+}
+
+#root {
+  max-width: 100%;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+h1, h2, h3 {
+  font-family: var(--display);
+  font-weight: 600;
+  color: var(--text-bright);
+  letter-spacing: 0.02em;
+}
+
+h1 {
+  font-size: 1.75rem;
+  letter-spacing: 0.04em;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+h2 {
+  font-size: 0.7rem;
+  font-weight: 600;
+  margin: 0 0 10px 0;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--text-muted);
+}
+
+h3 {
+  font-size: 0.75rem;
+  font-weight: 600;
+  margin: 0;
+  letter-spacing: 0.08em;
+}
+
+p {
+  margin: 0;
+}

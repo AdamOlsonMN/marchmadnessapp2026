@@ -1,0 +1,646 @@
+{
+  "teams": [
+    {
+      "id": 1103,
+      "name": "Akron",
+      "seed": 13,
+      "region": "W"
+    },
+    {
+      "id": 1104,
+      "name": "Alabama",
+      "seed": 2,
+      "region": "W"
+    },
+    {
+      "id": 1106,
+      "name": "Alabama St",
+      "seed": 16,
+      "region": "Y"
+    },
+    {
+      "id": 1110,
+      "name": "American Univ",
+      "seed": 16,
+      "region": "W"
+    },
+    {
+      "id": 1112,
+      "name": "Arizona",
+      "seed": 4,
+      "region": "W"
+    },
+    {
+      "id": 1116,
+      "name": "Arkansas",
+      "seed": 10,
+      "region": "Z"
+    },
+    {
+      "id": 1120,
+      "name": "Auburn",
+      "seed": 1,
+      "region": "Y"
+    },
+    {
+      "id": 1124,
+      "name": "Baylor",
+      "seed": 9,
+      "region": "W"
+    },
+    {
+      "id": 1136,
+      "name": "Bryant",
+      "seed": 15,
+      "region": "Y"
+    },
+    {
+      "id": 1140,
+      "name": "BYU",
+      "seed": 6,
+      "region": "W"
+    },
+    {
+      "id": 1155,
+      "name": "Clemson",
+      "seed": 5,
+      "region": "X"
+    },
+    {
+      "id": 1161,
+      "name": "Colorado St",
+      "seed": 12,
+      "region": "Z"
+    },
+    {
+      "id": 1163,
+      "name": "Connecticut",
+      "seed": 8,
+      "region": "Z"
+    },
+    {
+      "id": 1166,
+      "name": "Creighton",
+      "seed": 9,
+      "region": "Y"
+    },
+    {
+      "id": 1179,
+      "name": "Drake",
+      "seed": 11,
+      "region": "Z"
+    },
+    {
+      "id": 1181,
+      "name": "Duke",
+      "seed": 1,
+      "region": "W"
+    },
+    {
+      "id": 1188,
+      "name": "SIUE",
+      "seed": 16,
+      "region": "X"
+    },
+    {
+      "id": 1196,
+      "name": "Florida",
+      "seed": 1,
+      "region": "Z"
+    },
+    {
+      "id": 1208,
+      "name": "Georgia",
+      "seed": 9,
+      "region": "X"
+    },
+    {
+      "id": 1211,
+      "name": "Gonzaga",
+      "seed": 8,
+      "region": "X"
+    },
+    {
+      "id": 1213,
+      "name": "Grand Canyon",
+      "seed": 13,
+      "region": "Z"
+    },
+    {
+      "id": 1219,
+      "name": "High Point",
+      "seed": 13,
+      "region": "X"
+    },
+    {
+      "id": 1222,
+      "name": "Houston",
+      "seed": 1,
+      "region": "X"
+    },
+    {
+      "id": 1228,
+      "name": "Illinois",
+      "seed": 6,
+      "region": "X"
+    },
+    {
+      "id": 1235,
+      "name": "Iowa St",
+      "seed": 3,
+      "region": "Y"
+    },
+    {
+      "id": 1242,
+      "name": "Kansas",
+      "seed": 7,
+      "region": "Z"
+    },
+    {
+      "id": 1246,
+      "name": "Kentucky",
+      "seed": 3,
+      "region": "X"
+    },
+    {
+      "id": 1251,
+      "name": "Liberty",
+      "seed": 12,
+      "region": "W"
+    },
+    {
+      "id": 1252,
+      "name": "Lipscomb",
+      "seed": 14,
+      "region": "Y"
+    },
+    {
+      "id": 1257,
+      "name": "Louisville",
+      "seed": 8,
+      "region": "Y"
+    },
+    {
+      "id": 1266,
+      "name": "Marquette",
+      "seed": 7,
+      "region": "Y"
+    },
+    {
+      "id": 1268,
+      "name": "Maryland",
+      "seed": 4,
+      "region": "Z"
+    },
+    {
+      "id": 1270,
+      "name": "McNeese St",
+      "seed": 12,
+      "region": "X"
+    },
+    {
+      "id": 1272,
+      "name": "Memphis",
+      "seed": 5,
+      "region": "Z"
+    },
+    {
+      "id": 1276,
+      "name": "Michigan",
+      "seed": 5,
+      "region": "Y"
+    },
+    {
+      "id": 1277,
+      "name": "Michigan St",
+      "seed": 2,
+      "region": "Y"
+    },
+    {
+      "id": 1279,
+      "name": "Mississippi",
+      "seed": 6,
+      "region": "Y"
+    },
+    {
+      "id": 1280,
+      "name": "Mississippi St",
+      "seed": 8,
+      "region": "W"
+    },
+    {
+      "id": 1281,
+      "name": "Missouri",
+      "seed": 6,
+      "region": "Z"
+    },
+    {
+      "id": 1285,
+      "name": "Montana",
+      "seed": 14,
+      "region": "W"
+    },
+    {
+      "id": 1303,
+      "name": "NE Omaha",
+      "seed": 15,
+      "region": "Z"
+    },
+    {
+      "id": 1307,
+      "name": "New Mexico",
+      "seed": 10,
+      "region": "Y"
+    },
+    {
+      "id": 1313,
+      "name": "Norfolk St",
+      "seed": 16,
+      "region": "Z"
+    },
+    {
+      "id": 1314,
+      "name": "North Carolina",
+      "seed": 11,
+      "region": "Y"
+    },
+    {
+      "id": 1328,
+      "name": "Oklahoma",
+      "seed": 9,
+      "region": "Z"
+    },
+    {
+      "id": 1332,
+      "name": "Oregon",
+      "seed": 5,
+      "region": "W"
+    },
+    {
+      "id": 1345,
+      "name": "Purdue",
+      "seed": 4,
+      "region": "X"
+    },
+    {
+      "id": 1352,
+      "name": "Robert Morris",
+      "seed": 15,
+      "region": "W"
+    },
+    {
+      "id": 1385,
+      "name": "St John's",
+      "seed": 2,
+      "region": "Z"
+    },
+    {
+      "id": 1388,
+      "name": "St Mary's CA",
+      "seed": 7,
+      "region": "W"
+    },
+    {
+      "id": 1397,
+      "name": "Tennessee",
+      "seed": 2,
+      "region": "X"
+    },
+    {
+      "id": 1400,
+      "name": "Texas",
+      "seed": 11,
+      "region": "X"
+    },
+    {
+      "id": 1401,
+      "name": "Texas A&M",
+      "seed": 4,
+      "region": "Y"
+    },
+    {
+      "id": 1403,
+      "name": "Texas Tech",
+      "seed": 3,
+      "region": "Z"
+    },
+    {
+      "id": 1407,
+      "name": "Troy",
+      "seed": 14,
+      "region": "X"
+    },
+    {
+      "id": 1417,
+      "name": "UCLA",
+      "seed": 7,
+      "region": "X"
+    },
+    {
+      "id": 1423,
+      "name": "UNC Wilmington",
+      "seed": 14,
+      "region": "Z"
+    },
+    {
+      "id": 1429,
+      "name": "Utah St",
+      "seed": 10,
+      "region": "X"
+    },
+    {
+      "id": 1433,
+      "name": "VCU",
+      "seed": 11,
+      "region": "W"
+    },
+    {
+      "id": 1435,
+      "name": "Vanderbilt",
+      "seed": 10,
+      "region": "W"
+    },
+    {
+      "id": 1458,
+      "name": "Wisconsin",
+      "seed": 3,
+      "region": "W"
+    },
+    {
+      "id": 1459,
+      "name": "Wofford",
+      "seed": 15,
+      "region": "X"
+    },
+    {
+      "id": 1463,
+      "name": "Yale",
+      "seed": 13,
+      "region": "Y"
+    },
+    {
+      "id": 1471,
+      "name": "UC San Diego",
+      "seed": 12,
+      "region": "Y"
+    }
+  ],
+  "games": [
+    {
+      "slot": "R1W1",
+      "team1_id": 1181,
+      "team2_id": 1110,
+      "seed1": 1,
+      "seed2": 16,
+      "region": "W"
+    },
+    {
+      "slot": "R1W2",
+      "team1_id": 1104,
+      "team2_id": 1352,
+      "seed1": 2,
+      "seed2": 15,
+      "region": "W"
+    },
+    {
+      "slot": "R1W3",
+      "team1_id": 1458,
+      "team2_id": 1285,
+      "seed1": 3,
+      "seed2": 14,
+      "region": "W"
+    },
+    {
+      "slot": "R1W4",
+      "team1_id": 1112,
+      "team2_id": 1103,
+      "seed1": 4,
+      "seed2": 13,
+      "region": "W"
+    },
+    {
+      "slot": "R1W5",
+      "team1_id": 1332,
+      "team2_id": 1251,
+      "seed1": 5,
+      "seed2": 12,
+      "region": "W"
+    },
+    {
+      "slot": "R1W6",
+      "team1_id": 1140,
+      "team2_id": 1433,
+      "seed1": 6,
+      "seed2": 11,
+      "region": "W"
+    },
+    {
+      "slot": "R1W7",
+      "team1_id": 1388,
+      "team2_id": 1435,
+      "seed1": 7,
+      "seed2": 10,
+      "region": "W"
+    },
+    {
+      "slot": "R1W8",
+      "team1_id": 1280,
+      "team2_id": 1124,
+      "seed1": 8,
+      "seed2": 9,
+      "region": "W"
+    },
+    {
+      "slot": "R1X1",
+      "team1_id": 1222,
+      "team2_id": 1188,
+      "seed1": 1,
+      "seed2": 16,
+      "region": "X"
+    },
+    {
+      "slot": "R1X2",
+      "team1_id": 1397,
+      "team2_id": 1459,
+      "seed1": 2,
+      "seed2": 15,
+      "region": "X"
+    },
+    {
+      "slot": "R1X3",
+      "team1_id": 1246,
+      "team2_id": 1407,
+      "seed1": 3,
+      "seed2": 14,
+      "region": "X"
+    },
+    {
+      "slot": "R1X4",
+      "team1_id": 1345,
+      "team2_id": 1219,
+      "seed1": 4,
+      "seed2": 13,
+      "region": "X"
+    },
+    {
+      "slot": "R1X5",
+      "team1_id": 1155,
+      "team2_id": 1270,
+      "seed1": 5,
+      "seed2": 12,
+      "region": "X"
+    },
+    {
+      "slot": "R1X6",
+      "team1_id": 1228,
+      "team2_id": 1400,
+      "seed1": 6,
+      "seed2": 11,
+      "region": "X"
+    },
+    {
+      "slot": "R1X7",
+      "team1_id": 1417,
+      "team2_id": 1429,
+      "seed1": 7,
+      "seed2": 10,
+      "region": "X"
+    },
+    {
+      "slot": "R1X8",
+      "team1_id": 1211,
+      "team2_id": 1208,
+      "seed1": 8,
+      "seed2": 9,
+      "region": "X"
+    },
+    {
+      "slot": "R1Y1",
+      "team1_id": 1120,
+      "team2_id": 1106,
+      "seed1": 1,
+      "seed2": 16,
+      "region": "Y"
+    },
+    {
+      "slot": "R1Y2",
+      "team1_id": 1277,
+      "team2_id": 1136,
+      "seed1": 2,
+      "seed2": 15,
+      "region": "Y"
+    },
+    {
+      "slot": "R1Y3",
+      "team1_id": 1235,
+      "team2_id": 1252,
+      "seed1": 3,
+      "seed2": 14,
+      "region": "Y"
+    },
+    {
+      "slot": "R1Y4",
+      "team1_id": 1401,
+      "team2_id": 1463,
+      "seed1": 4,
+      "seed2": 13,
+      "region": "Y"
+    },
+    {
+      "slot": "R1Y5",
+      "team1_id": 1276,
+      "team2_id": 1471,
+      "seed1": 5,
+      "seed2": 12,
+      "region": "Y"
+    },
+    {
+      "slot": "R1Y6",
+      "team1_id": 1279,
+      "team2_id": 1314,
+      "seed1": 6,
+      "seed2": 11,
+      "region": "Y"
+    },
+    {
+      "slot": "R1Y7",
+      "team1_id": 1266,
+      "team2_id": 1307,
+      "seed1": 7,
+      "seed2": 10,
+      "region": "Y"
+    },
+    {
+      "slot": "R1Y8",
+      "team1_id": 1257,
+      "team2_id": 1166,
+      "seed1": 8,
+      "seed2": 9,
+      "region": "Y"
+    },
+    {
+      "slot": "R1Z1",
+      "team1_id": 1196,
+      "team2_id": 1313,
+      "seed1": 1,
+      "seed2": 16,
+      "region": "Z"
+    },
+    {
+      "slot": "R1Z2",
+      "team1_id": 1385,
+      "team2_id": 1303,
+      "seed1": 2,
+      "seed2": 15,
+      "region": "Z"
+    },
+    {
+      "slot": "R1Z3",
+      "team1_id": 1403,
+      "team2_id": 1423,
+      "seed1": 3,
+      "seed2": 14,
+      "region": "Z"
+    },
+    {
+      "slot": "R1Z4",
+      "team1_id": 1268,
+      "team2_id": 1213,
+      "seed1": 4,
+      "seed2": 13,
+      "region": "Z"
+    },
+    {
+      "slot": "R1Z5",
+      "team1_id": 1272,
+      "team2_id": 1161,
+      "seed1": 5,
+      "seed2": 12,
+      "region": "Z"
+    },
+    {
+      "slot": "R1Z6",
+      "team1_id": 1281,
+      "team2_id": 1179,
+      "seed1": 6,
+      "seed2": 11,
+      "region": "Z"
+    },
+    {
+      "slot": "R1Z7",
+      "team1_id": 1242,
+      "team2_id": 1116,
+      "seed1": 7,
+      "seed2": 10,
+      "region": "Z"
+    },
+    {
+      "slot": "R1Z8",
+      "team1_id": 1163,
+      "team2_id": 1328,
+      "seed1": 8,
+      "seed2": 9,
+      "region": "Z"
+    }
+  ]
+}
