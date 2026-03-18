@@ -260,14 +260,21 @@ def run_monte_carlo(
         r2_counts = {}
         _is_tty = getattr(sys.stdout, "isatty", lambda: False)()
         if _is_tty:
-            _sim_range = tqdm(range(n_sims), desc="Bracket sims", unit="sim", file=sys.stdout, mininterval=0.5)
+            sim_iter = tqdm(
+                range(n_sims),
+                desc="Bracket sims",
+                unit="sim",
+                file=sys.stdout,
+                mininterval=0.5,
+            )
         else:
             def _sim_range():
                 for i in range(n_sims):
                     if (i + 1) % 500 == 0 or i == 0:
                         print(f"   {(i + 1)}/{n_sims} sims...", flush=True)
                     yield i
-        for _ in _sim_range:
+            sim_iter = _sim_range()
+        for _ in sim_iter:
             winners = {}
             for slot in slot_order:
                 if slot in fixed_winners:
@@ -320,14 +327,21 @@ def run_monte_carlo(
     champ_counts = {}
     _is_tty = getattr(sys.stdout, "isatty", lambda: False)()
     if _is_tty:
-        _sim_range = tqdm(range(n_sims), desc="Bracket sims", unit="sim", file=sys.stdout, mininterval=0.5)
+        sim_iter = tqdm(
+            range(n_sims),
+            desc="Bracket sims",
+            unit="sim",
+            file=sys.stdout,
+            mininterval=0.5,
+        )
     else:
         def _sim_range():
             for i in range(n_sims):
                 if (i + 1) % 500 == 0 or i == 0:
                     print(f"   {(i + 1)}/{n_sims} sims...", flush=True)
                 yield i
-    for _ in _sim_range:
+        sim_iter = _sim_range()
+    for _ in sim_iter:
         last_w = None
         for gp in game_probs:
             slot = str(gp.get("slot", ""))
