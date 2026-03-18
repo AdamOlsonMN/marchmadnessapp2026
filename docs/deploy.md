@@ -60,7 +60,7 @@ On the VPS:
 **Secrets** (Settings → Secrets and variables → Actions):
 
 - `SSH_PRIVATE_KEY` — Private key for SSH (no passphrase, or use an agent).
-- `VPS_HOST` — VPS IP or hostname.
+- `VPS_HOST` — VPS IP or hostname. If you use a custom domain (e.g. **mm.adamolson.org**), set this to that hostname so deploy and refresh SSH to the same host and the post-deploy health check works.
 - Optional: `VPS_USER` (default `root`), `VPS_APP_DIR` (default `/var/www/march-madness`).
 
 The server must have the repo cloned and Docker installed (one-time bootstrap above).
@@ -119,7 +119,8 @@ Put Nginx and certbot on the host; run the app container on an internal port so 
 3. Use the example host config: `deploy/nginx-host-ssl.conf.example`. Copy it to e.g. `/etc/nginx/sites-available/mm.adamolson.org`. Edit so the proxy target is `http://127.0.0.1:8080`.
 4. For the first run, use a temporary server block that listens on 80, serves `/.well-known/acme-challenge/` from `/var/www/certbot`, and proxies everything else to `http://127.0.0.1:8080`. Run: `sudo certbot certonly --webroot -w /var/www/certbot -d mm.adamolson.org`.
 5. Then switch to the full config in the example (redirect HTTP to HTTPS and 443 with `ssl_certificate` from certbot). Run `sudo nginx -t && sudo systemctl reload nginx`.
-6. Set `CORS_ORIGINS=https://mm.adamolson.org` for the API (see Troubleshooting). Renewal: `sudo certbot renew` (or use a systemd timer/cron).
+6. (Optional) Add HSTS so browsers use HTTPS only: in the 443 `server` block add `add_header Strict-Transport-Security "max-age=31536000; includeSubDomains" always;`.
+7. Set `CORS_ORIGINS=https://mm.adamolson.org` for the API (see Troubleshooting). Renewal: `sudo certbot renew` (or use a systemd timer/cron).
 
 **Option B — Caddy in front**  
 Run Caddy in a container or on the host with `CADDY_DOMAIN=mm.adamolson.org`; it obtains and renews Let's Encrypt certs automatically.
@@ -135,6 +136,7 @@ The stack serves HTTP only. For a public URL you should add HTTPS. Two common op
 ## Troubleshooting
 
 - **503 or “Bracket cache missing”** — The API serves `/bracket` only from prebuilt cache. Run refresh (Docker: `docker compose --profile tools run --rm refresh`; bare metal: `./deploy/scripts/refresh.sh` or `PYTHONPATH=src python scripts/refresh.py`). Ensure `data/raw/bracket_2026.json` exists and, if needed, Kaggle data is in `data/raw/`.
+- **Refresh taking a long time** — Full refresh (training + 10k sims) can take 15–30+ minutes. Use `--skip-train` to reuse existing models and `--n-sims 2000` for a quicker run, e.g. `python scripts/refresh.py --skip-train --n-sims 2000` (or in Docker: add those flags to the refresh service command).
 - **Blank or “Frontend not built”** — Build the frontend and copy `dashboard/frontend/dist/*` into `frontend-dist/` (Docker) or the Nginx `root` (bare metal).
 - **API not reachable** — Check that the reverse proxy forwards `/api/` to the API (Docker: `api:8000`; bare metal: `127.0.0.1:8000`). The frontend uses same-origin `/api` by default; do not point it at `localhost:8000` in production.
 

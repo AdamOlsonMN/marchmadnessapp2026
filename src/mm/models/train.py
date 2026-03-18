@@ -51,7 +51,6 @@ def train_xgboost_model(X: np.ndarray, y: np.ndarray) -> Any:
         colsample_bytree=0.8,
         random_state=42,
         eval_metric="logloss",
-        use_label_encoder=False,
     )
     m.fit(X, y)
     return m
@@ -133,7 +132,7 @@ def run_training(
             xgb.XGBClassifier(
                 n_estimators=200, max_depth=4, learning_rate=0.05,
                 subsample=0.8, colsample_bytree=0.8, random_state=42,
-                eval_metric="logloss", use_label_encoder=False,
+                eval_metric="logloss",
             ),
             X, y, method="isotonic",
         )

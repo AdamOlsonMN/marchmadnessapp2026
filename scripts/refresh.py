@@ -52,7 +52,7 @@ def main():
         print("4. No bracket file; skip simulation. Add data/raw/bracket_2026.json and re-run.")
         return 0
 
-    print(f"4. Running bracket simulation ({n_sims} sims)…")
+    print(f"4. Running bracket simulation ({n_sims} sims)…", flush=True)
     from mm.config import DEFAULT_SEASON
     from mm.bracket.simulate import (
         load_bracket_and_simulate,

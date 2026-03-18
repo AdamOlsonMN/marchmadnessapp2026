@@ -60,14 +60,21 @@ def test_history_upsets_returns_structure():
 
 @pytest.mark.skipif(client is None, reason="httpx not installed")
 def test_whatif_accepts_post():
-    r = client.post("/whatif", json={"fixed_winners": {}})
-    # May be 404 if no bracket, or 200 if bracket exists
-    assert r.status_code in (200, 404, 503)
+    # Avoid slow path: if bracket exists but no matrix, endpoint runs 2k sims. Pin to 404 for speed.
+    with patch("dashboard.api.main.BRACKET_PATH") as mock_path:
+        mock_path.exists.return_value = False
+        r = client.post("/whatif", json={"fixed_winners": {}})
+    assert r.status_code == 404
 
 
 @pytest.mark.skipif(client is None, reason="httpx not installed")
 def test_value_endpoint():
-    r = client.get("/value?threshold=0.05")
+    # Avoid slow pipeline and missing odds: mock run_value_pipeline so we get 200 with empty recs.
+    import pandas as pd
+    with patch("dashboard.api.main.BRACKET_PATH") as mock_path:
+        mock_path.exists.return_value = True
+        with patch("mm.value.recommendations.run_value_pipeline", return_value=pd.DataFrame()):
+            r = client.get("/value?threshold=0.05")
     assert r.status_code == 200
     data = r.json()
     assert "recommendations" in data
